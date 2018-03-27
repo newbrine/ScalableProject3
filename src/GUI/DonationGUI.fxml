@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="190.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GUIController">
+   <children>
+      <BorderPane prefHeight="190.0" prefWidth="320.0">
+         <left>
+            <VBox prefHeight="150.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <VBox prefHeight="160.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <HBox prefHeight="30.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="50.0" />
+                  <TextArea editable="false" prefHeight="40.0" prefWidth="220.0" />
+                  <VBox prefHeight="200.0" prefWidth="0.0" />
+               </children>
+            </HBox>
+         </bottom>
+         <center>
+            <VBox prefHeight="140.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addNewPatientDonor" prefHeight="30.0" prefWidth="180.0" text="Add Patient/Donor" />
+                  <Button mnemonicParsing="false" onAction="#deletePatientDonor" prefHeight="30.0" prefWidth="180.0" text="Delete Patient/Donor" />
+                  <Button mnemonicParsing="false" onAction="#searchPatientDonor" prefHeight="30.0" prefWidth="180.0" text="Search Patients/Donors" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" text="Match Patient/Donor" />
+               </children>
+            </VBox>
+         </center>
+         <top>
+            <VBox prefHeight="10.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
