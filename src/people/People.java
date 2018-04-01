@@ -1,7 +1,7 @@
 package people;
 
 public interface People {
-	public void add(String name, int id, String bloodtype);
+	public void add(String name, String id, String bloodtype);
 	
-	public void remove(int id);
+	public void remove(String id);
 }

@@ -4,10 +4,13 @@ import java.sql.*;
 
 public class Database {
 	private static Statement stat;
+	private static Connection con;
+	
+	public Database() {}
 	
     public static void createDB(String DBName) throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        Connection con = DriverManager.getConnection("jdbc:sqlite:" + DBName);
+        con = DriverManager.getConnection("jdbc:sqlite:" + DBName);
         stat = con.createStatement();
     }
     
@@ -19,7 +22,11 @@ public class Database {
 		}
     }
     
-    public static Statement getStat() {
-    	return stat;
+    public static ResultSet getResults() throws SQLException {
+    	return stat.getResultSet();
+    }
+    
+    public PreparedStatement prepareStat(String command) throws SQLException {
+    	return con.prepareStatement(command);
     }
 }

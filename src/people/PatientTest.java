@@ -8,20 +8,28 @@ import org.junit.Test;
 import sql.Database;
 
 public class PatientTest {
+	Patient patient = new Patient();
+	
 	@Test
-	public void Test() throws ClassNotFoundException, SQLException {
+	public void addTest() throws ClassNotFoundException, SQLException {
 		Database.createDB("test");
-		Database.readCommand("DROP TABLE Patient");
-		Database.readCommand("CREATE TABLE Patient (Name TEXT, Id INTEGER, Bloodtype TEXT)");
-		Patient patient = new Patient();
-		patient.add("ali", 001, "O");
+		Database.readCommand("DROP TABLE IF EXISTS Patient");
+		Database.readCommand("CREATE TABLE Patient (Name TEXT, Id TEXT, Bloodtype TEXT)");
+		patient.add("ali", "001", "O");
 		Database.readCommand("select * from Patient");
-		ResultSet results = Database.getStat().getResultSet();
+		ResultSet results = Database.getResults();
 		String name1 = results.getString("Name");
-		int id = results.getInt("Id");
+		String id = results.getString("Id");
 		String type = results.getString("Bloodtype");
 		assertTrue(name1.equals("ali"));
-		assertTrue(id == 001);
+		assertTrue(id.equals("001"));
 		assertTrue(type.equals("O"));
+	}
+	
+	@Test
+	public void removeTest() throws ClassNotFoundException, SQLException {
+		patient.remove("'001'");
+		ResultSet results = Database.getResults();
+		assertTrue(results.getString("Name")== null);
 	}
 }

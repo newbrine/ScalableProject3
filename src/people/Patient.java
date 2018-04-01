@@ -1,18 +1,27 @@
 package people;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import sql.Database;
 
 public class Patient implements People {
 	public Patient() {}
 	
 	@Override
-	public void add(String name, int id, String bloodtype) {
-		Database.readCommand("INSERT INTO Patient VALUES ('" + name + "', " + Integer.toString(id) + ", '" + bloodtype + "')");
+	public void add(String name, String id, String bloodtype) {
+		Database.readCommand("INSERT INTO Patient VALUES ('" + name + "', '" + id + "', '" + bloodtype + "')");
 	}
 
 	@Override
-	public void remove(int id) {
-		Database.readCommand("DELETE Patient WHERE Id=" + id);
+	public void remove(String id) {
+		Database database = new Database();
+		try {
+			PreparedStatement pstmt = database.prepareStat("DELETE Patient WHERE Id = ?");
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 	}
 	
 	public boolean isMatch(String bloodtype1, String bloodtype2) {
