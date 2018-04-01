@@ -12,4 +12,8 @@ public class Patient implements People {
 	public void remove(int id) {
 		Build.readCommand("DELETE Patient WHERE Id=" + id);
 	}
+	
+	public boolean isMatch(String bloodtype1, String bloodtype2) {
+		return bloodtype1.equals(bloodtype2);
+	}
 }

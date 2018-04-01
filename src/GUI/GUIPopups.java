@@ -15,6 +15,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import people.PersonType;
+import sql.Build;
 
 public class GUIPopups {
 
@@ -30,14 +32,15 @@ public class GUIPopups {
 		VBox layout = new VBox();
 		
 		HBox IDNumberHbox = createLabelRow("ID Number: ", "Enter Patient/Donor ID number");
+		HBox patientDonorHbox = createChoiceRow();
 		
 		HBox buttonHbox = new HBox();
 		Button deleteButton = createButton("Delete");
 		deleteButton.setOnAction((event) -> {popup.close();});
 		buttonHbox.getChildren().add(deleteButton);
 		
-		layout.getChildren().addAll(IDNumberHbox, buttonHbox);
-		Scene popupscene = new Scene(layout, 350, 63);
+		layout.getChildren().addAll(IDNumberHbox, patientDonorHbox, buttonHbox);
+		Scene popupscene = new Scene(layout, 350, 85);
 		popup.setScene(popupscene);
 		popup.show();
 	}
@@ -106,7 +109,10 @@ public class GUIPopups {
 	
 	public HBox createChoiceRow() {
 		HBox box = new HBox();
-		ChoiceBox patientDonorSelect = new ChoiceBox(FXCollections.observableArrayList("Patient", "Donor"));
+		ChoiceBox patientDonorSelect = new ChoiceBox();
+		for (PersonType type: PersonType.values()) {
+        	patientDonorSelect.getItems().add(type);
+        }
 		box.getChildren().add(patientDonorSelect);
 		return box;
 	}
