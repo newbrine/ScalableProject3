@@ -2,7 +2,7 @@ package sql;
 
 import java.sql.*;
 
-public class Build {
+public class Database {
 	private static Statement stat;
 	
     public static void createDB() throws ClassNotFoundException, SQLException {
