@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -17,9 +18,7 @@ import javafx.stage.Stage;
 
 public class GUIPopups {
 
-	public GUIPopups() {
-		
-	}
+	public GUIPopups() {}
 	
 	public void AddPatientDonor() {
 		popup();
@@ -30,20 +29,12 @@ public class GUIPopups {
 		popup.initModality(Modality.APPLICATION_MODAL);
 		VBox layout = new VBox();
 		
-		HBox IDNumberHbox = new HBox();
-		Label IDNumberLabel = new Label("ID Number: ");
-		TextField IDNumberField = new TextField();
-		IDNumberField.setPrefWidth(250);
-		IDNumberField.setPromptText("Enter Patient/Donor ID nubmer");
-		IDNumberField.setEditable(true);
-		IDNumberHbox.getChildren().addAll(IDNumberLabel, IDNumberField);
+		HBox IDNumberHbox = createLabelRow("ID Number: ", "Enter Patient/Donor ID number");
 		
 		HBox buttonHbox = new HBox();
-		Button sendButton = new Button();
-		sendButton.setText("Add");
-		sendButton.setOnAction((event) -> {popup.close();});
-		
-		buttonHbox.getChildren().add(sendButton);
+		Button deleteButton = createButton("Delete");
+		deleteButton.setOnAction((event) -> {popup.close();});
+		buttonHbox.getChildren().add(deleteButton);
 		
 		layout.getChildren().addAll(IDNumberHbox, buttonHbox);
 		Scene popupscene = new Scene(layout, 350, 63);
@@ -55,47 +46,68 @@ public class GUIPopups {
 		popup();
 	}
 	
+	public void MatchPatientDonor() {
+		Stage popup = new Stage();
+		popup.initModality(Modality.APPLICATION_MODAL);
+		VBox layout = new VBox();
+		
+		HBox bloodHbox = createLabelRow("Blood Type: ", "Enter Patient/Donor blood type");
+		
+		HBox buttonHbox = new HBox();
+		Button deleteButton = createButton("Match");
+		deleteButton.setOnAction((event) -> {popup.close();});
+		buttonHbox.getChildren().add(deleteButton);
+		
+		layout.getChildren().addAll(bloodHbox, buttonHbox);
+		Scene popupscene = new Scene(layout, 350, 63);
+		popup.setScene(popupscene);
+		popup.show();
+	}
+	
 	public void popup(){
 		Stage popup = new Stage();
 		popup.initModality(Modality.APPLICATION_MODAL);
 		VBox layout = new VBox();
 		
-		HBox nameHbox = new HBox();
-		Label nameLabel = new Label("Name: ");
-		TextField nameField = new TextField();
-		nameField.setPrefWidth(250);
-		nameField.setPromptText("Enter Patient/Donor name");
-		nameField.setEditable(true);
-		nameHbox.getChildren().addAll(nameLabel, nameField);
-		
-		HBox IDNumberHbox = new HBox();
-		Label IDNumberLabel = new Label("ID Number: ");
-		TextField IDNumberField = new TextField();
-		IDNumberField.setPrefWidth(250);
-		IDNumberField.setPromptText("Enter Patient/Donor ID nubmer");
-		IDNumberField.setEditable(true);
-		IDNumberHbox.getChildren().addAll(IDNumberLabel, IDNumberField);
-		
-		HBox bloodHbox = new HBox();
-		Label bloodLabel = new Label("Blood Type: ");
-		TextField bloodField = new TextField();
-		bloodField.setPrefWidth(250);
-		bloodField.setPromptText("Enter Patient/Donor blood type");
-		bloodField.setEditable(true);
-		bloodHbox.getChildren().addAll(bloodLabel, bloodField);
+		HBox nameHbox = createLabelRow("Name: ", "Enter Patient/Donor name");
+		HBox IDNumberHbox = createLabelRow("ID Number: ", "Enter Patient/Donor ID number");		
+		HBox bloodHbox = createLabelRow("Blood Type: ", "Enter Patient/Donor blood type");
+		HBox patientDonorHbox = createChoiceRow();
 		
 		HBox buttonHbox = new HBox();
-		Button searchButton = new Button();
-		Button addButton = new Button();
-		searchButton.setText("Search");
-		addButton.setText("Add");
+		Button searchButton = createButton("Search");
+		Button addButton = createButton("Add");
 		addButton.setOnAction((event) -> {popup.close();});
 		searchButton.setOnAction((event) -> {popup.close();});
 		buttonHbox.getChildren().addAll(addButton, searchButton);
 		
-		layout.getChildren().addAll(nameHbox, IDNumberHbox, bloodHbox, buttonHbox);
-		Scene popupscene = new Scene(layout, 350, 125);
+		layout.getChildren().addAll(nameHbox, IDNumberHbox, bloodHbox, patientDonorHbox, buttonHbox);
+		Scene popupscene = new Scene(layout, 350, 155);
 		popup.setScene(popupscene);
 		popup.show();
+	}
+	
+	public Button createButton(String labelName) {
+		Button button = new Button();
+		button.setText(labelName);
+		return button;
+	}
+	
+	public HBox createLabelRow(String labelName, String textFieldText) {
+		HBox box = new HBox();
+		Label label = new Label(labelName);
+		TextField textField = new TextField();
+		textField.setPrefWidth(250);
+		textField.setPromptText(textFieldText);
+		textField.setEditable(true);
+		box.getChildren().addAll(label, textField);
+		return box;
+	}
+	
+	public HBox createChoiceRow() {
+		HBox box = new HBox();
+		ChoiceBox patientDonorSelect = new ChoiceBox(FXCollections.observableArrayList("Patient", "Donor"));
+		box.getChildren().add(patientDonorSelect);
+		return box;
 	}
 }

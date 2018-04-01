@@ -34,4 +34,10 @@ public class GUIController {
 		GUIPopups popups = new GUIPopups();
 		popups.SearchPatientDonor();
 	}
+	
+	@FXML
+	public void matchPatientDonor() {
+		GUIPopups popups = new GUIPopups();
+		popups.MatchPatientDonor();
+	}
 }
