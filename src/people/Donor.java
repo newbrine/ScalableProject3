@@ -5,7 +5,7 @@ import sql.Build;
 public class Donor implements People {
 	@Override
 	public void add(String name, int id, String bloodtype) {
-		Build.readCommand("INSERT INTO Donor VALUES (" + name + ", " + Integer.toString(id) + ", " + bloodtype + ")");
+		Build.readCommand("INSERT INTO Donor VALUES ('"+ name + "', " + Integer.toString(id) + ", '" + bloodtype + "')");
 	}
 
 	@Override
