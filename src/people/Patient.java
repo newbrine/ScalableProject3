@@ -3,6 +3,8 @@ package people;
 import sql.Database;
 
 public class Patient implements People {
+	public Patient() {}
+	
 	@Override
 	public void add(String name, int id, String bloodtype) {
 		Database.readCommand("INSERT INTO Patient VALUES ('" + name + "', " + Integer.toString(id) + ", '" + bloodtype + "')");

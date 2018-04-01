@@ -12,7 +12,7 @@ public class GUIApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Database.createDB();
+			Database.createDB("blooddonor");
 			Database.readCommand("CREATE TABLE IF NOT EXISTS Donor (Name TEXT, Id INTEGER, Bloodtype TEXT)");
 			Database.readCommand("CREATE TABLE IF NOT EXISTS Patient (Name TEXT, Id INTEGER, Bloodtype TEXT)");
 			AnchorPane root = (AnchorPane)FXMLLoader.load(GUIApp.class.getResource("DonationGUI.fxml"));

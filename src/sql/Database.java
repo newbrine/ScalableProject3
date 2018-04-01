@@ -5,9 +5,9 @@ import java.sql.*;
 public class Database {
 	private static Statement stat;
 	
-    public static void createDB() throws ClassNotFoundException, SQLException {
+    public static void createDB(String DBName) throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        Connection con = DriverManager.getConnection("jdbc:sqlite:blooddonor");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:" + DBName);
         stat = con.createStatement();
     }
     
@@ -17,5 +17,9 @@ public class Database {
 		} catch (SQLException e) {
 			System.out.println("Invalid argument");
 		}
+    }
+    
+    public static Statement getStat() {
+    	return stat;
     }
 }
