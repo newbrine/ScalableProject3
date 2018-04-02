@@ -1,8 +1,18 @@
 package GUI;
 
-import people.Patient;
+import java.util.ArrayList;
+
+import People.Donor;
+import People.Patient;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class GUIController {
 	
@@ -22,9 +32,13 @@ public class GUIController {
 	public void addNewPatient() {
 		Patient patient = new Patient();
 		patient.add(name.getText(), id.getText(), bloodType.getText());
-		name.clear();
-		id.clear();
-		bloodType.clear();
+		clearTextFields();
+	}
+	
+	public void addNewDonor() {
+		Donor donor = new Donor();
+		donor.add(name.getText(), id.getText(), bloodType.getText());
+		clearTextFields();
 	}
 	
 	@FXML
@@ -43,5 +57,11 @@ public class GUIController {
 	public void matchPatientDonor() {
 		GUIPopups popups = new GUIPopups();
 		popups.MatchPatientDonor();
+	}
+	
+	public void clearTextFields() {
+		name.clear();
+		id.clear();
+		bloodType.clear();
 	}
 }
