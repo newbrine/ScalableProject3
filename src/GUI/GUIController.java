@@ -53,7 +53,7 @@ public class GUIController {
 	
 	@FXML
 	public void deleteDonor() {
-		patient.remove(id.getText());
+		donor.remove(id.getText());
 		clearTextFields();
 	}
 	
