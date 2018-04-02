@@ -21,6 +21,7 @@ public class PatientTest {
 		String name1 = results.getString("Name");
 		String id = results.getString("Id");
 		String type = results.getString("Bloodtype");
+		Database.closeResults(results);
 		assertTrue(name1.equals("ali"));
 		assertTrue(id.equals("001"));
 		assertTrue(type.equals("O"));
@@ -29,7 +30,8 @@ public class PatientTest {
 	@Test
 	public void removeTest() throws ClassNotFoundException, SQLException {
 		patient.remove("'001'");
-		ResultSet results = Database.getResults();
-		assertTrue(results.getString("Name")== null);
+		Database.readCommand("select * from Patient");
+		ResultSet results = Database.getAndCloseResults();
+		assertFalse(results == null);
 	}
 }

@@ -26,6 +26,16 @@ public class Database {
     	return stat.getResultSet();
     }
     
+    public static void closeResults(ResultSet results) throws SQLException {
+    	results.close();
+    }
+    
+    public static ResultSet getAndCloseResults() throws SQLException {
+    	ResultSet results = stat.getResultSet();
+    	results.close();
+    	return results;
+    }
+    
     public PreparedStatement prepareStat(String command) throws SQLException {
     	return con.prepareStatement(command);
     }
