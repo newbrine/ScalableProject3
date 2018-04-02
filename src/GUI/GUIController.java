@@ -42,7 +42,7 @@ public class GUIController {
 	}
 	
 	@FXML
-	public void deletePatientDonor() {
+	public void deletePatient() {
 		GUIPopups popups = new GUIPopups();
 		popups.DeletePatientDonor();
 	}

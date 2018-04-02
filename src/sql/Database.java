@@ -36,8 +36,8 @@ public class Database {
     	return results;
     }
     
-    public static void printAll(String command) throws SQLException {
-    	readCommand(command);
+    public static void printAll(String table) throws SQLException {
+    	readCommand("SELECT * FROM " + table);
     	ResultSet results = stat.getResultSet();
     	while (results.next()) {
     		String name1 = results.getString("Name");
@@ -47,7 +47,6 @@ public class Database {
     		System.out.println(id);
     		System.out.println(type);
     	}
-    	System.out.println();
     	results.close();
     }
 }
