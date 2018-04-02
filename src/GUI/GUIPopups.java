@@ -15,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import people.PersonType;
 
 public class GUIPopups {
 
@@ -31,15 +30,14 @@ public class GUIPopups {
 		VBox layout = new VBox();
 		
 		HBox IDNumberHbox = createLabelRow("ID Number: ", "Enter Patient/Donor ID number");
-		HBox patientDonorHbox = createChoiceRow();
 		
 		HBox buttonHbox = new HBox();
 		Button deleteButton = createButton("Delete");
 		deleteButton.setOnAction((event) -> {popup.close();});
 		buttonHbox.getChildren().add(deleteButton);
 		
-		layout.getChildren().addAll(IDNumberHbox, patientDonorHbox, buttonHbox);
-		Scene popupscene = new Scene(layout, 350, 85);
+		layout.getChildren().addAll(IDNumberHbox, buttonHbox);
+		Scene popupscene = new Scene(layout, 350, 63);
 		popup.setScene(popupscene);
 		popup.show();
 	}

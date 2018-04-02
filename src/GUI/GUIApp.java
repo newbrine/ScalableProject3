@@ -3,7 +3,7 @@ package GUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import sql.Database;
+import SQL.Database;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
@@ -13,8 +13,8 @@ public class GUIApp extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Database.createDB("blooddonor");
-			Database.readCommand("CREATE TABLE IF NOT EXISTS Donor (Name TEXT, Id TEXT, Bloodtype TEXT)");
-			Database.readCommand("CREATE TABLE IF NOT EXISTS Patient (Name TEXT, Id TEXT, Bloodtype TEXT)");
+			Database.readCommand("CREATE TABLE IF NOT EXISTS Donor (Name TEXT, Id INTEGER, Bloodtype TEXT)");
+			Database.readCommand("CREATE TABLE IF NOT EXISTS Patient (Name TEXT, Id INTEGER, Bloodtype TEXT)");
 			AnchorPane root = (AnchorPane)FXMLLoader.load(GUIApp.class.getResource("DonationGUI.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
