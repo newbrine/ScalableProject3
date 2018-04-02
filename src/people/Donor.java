@@ -19,7 +19,7 @@ public class Donor implements People {
 
 	@Override
 	public void remove(String id) {
-		Database.readCommand("DELETE FROM Donor WHERE Id = \' " + id + " '");
+		Database.readCommand("DELETE FROM Donor WHERE Id = '" + id + "'");
 		try {
 			Database.printAll("Donor");
 		} catch (SQLException e) {
