@@ -32,10 +32,6 @@ public class DonorTest {
 		donor.remove("'001'");
 		Database.readCommand("select * from Donor");
 		ResultSet results = Database.getAndCloseResults();
-<<<<<<< HEAD
 		assertFalse(results.next());
-=======
-		assertFalse(results == null);
->>>>>>> master
 	}
 }
