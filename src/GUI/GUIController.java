@@ -1,9 +1,10 @@
 package GUI;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import People.Donor;
-import People.Patient;
+import people.Donor;
+import people.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,27 +25,36 @@ public class GUIController {
 	
 	@FXML
 	TextField bloodType;
-
+	
+	Patient patient;
+	Donor donor;
 	@FXML
-	public void initialize() {}
+	public void initialize() {
+		patient = new Patient();
+		donor = new Donor();
+	}
 	
 	@FXML
 	public void addNewPatient() {
-		Patient patient = new Patient();
 		patient.add(name.getText(), id.getText(), bloodType.getText());
 		clearTextFields();
 	}
 	
 	public void addNewDonor() {
-		Donor donor = new Donor();
 		donor.add(name.getText(), id.getText(), bloodType.getText());
 		clearTextFields();
 	}
 	
 	@FXML
 	public void deletePatient() {
-		GUIPopups popups = new GUIPopups();
-		popups.DeletePatientDonor();
+		patient.remove(id.getText());
+		clearTextFields();
+	}
+	
+	@FXML
+	public void deleteDonor() {
+		patient.remove(id.getText());
+		clearTextFields();
 	}
 	
 	@FXML

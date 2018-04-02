@@ -8,7 +8,7 @@ public class Donor implements People {
 	public Donor() {}
 	
 	@Override
-	public void add(String name, String id, String bloodtype) throws SQLException {
+	public void add(String name, String id, String bloodtype) {
 		Database.readCommand("INSERT INTO Donor VALUES ('"+ name + "', '" + id + "', '" + bloodtype + "')");
 		try {
 			Database.printAll("Donor");
