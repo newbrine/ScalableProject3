@@ -108,10 +108,7 @@ public class GUIPopups {
 	
 	public HBox createChoiceRow() {
 		HBox box = new HBox();
-		ChoiceBox patientDonorSelect = new ChoiceBox();
-		for (PersonType type: PersonType.values()) {
-        	patientDonorSelect.getItems().add(type);
-        }
+		ChoiceBox patientDonorSelect = new ChoiceBox(FXCollections.observableArrayList("Patient", "Donor"));
 		box.getChildren().add(patientDonorSelect);
 		return box;
 	}
