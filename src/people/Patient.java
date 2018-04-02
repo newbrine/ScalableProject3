@@ -19,7 +19,7 @@ public class Patient implements People {
 
 	@Override
 	public void remove(String id) {
-		Database.readCommand("DELETE FROM Patient WHERE Id = \' " + id + " '");
+		Database.readCommand("DELETE FROM Patient WHERE Id = '" + id + "'");
 		try {
 			Database.printAll("Patient");
 		} catch (SQLException e) {
