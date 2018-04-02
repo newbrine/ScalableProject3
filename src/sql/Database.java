@@ -35,8 +35,4 @@ public class Database {
     	results.close();
     	return results;
     }
-    
-    public PreparedStatement prepareStat(String command) throws SQLException {
-    	return con.prepareStatement(command);
-    }
 }

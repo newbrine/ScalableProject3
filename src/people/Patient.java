@@ -14,14 +14,7 @@ public class Patient implements People {
 
 	@Override
 	public void remove(String id) {
-		Database database = new Database();
-		try {
-			PreparedStatement pstmt = database.prepareStat("DELETE FROM Patient WHERE Id = ?");
-			pstmt.setString(1, id);
-			pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+		Database.readCommand("DELETE FROM Patient WHERE Id = '" + id + "'");
 	}
 	
 	public boolean isMatch(String bloodtype1, String bloodtype2) {
