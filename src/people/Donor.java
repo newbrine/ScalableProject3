@@ -1,12 +1,14 @@
 package people;
 
+import java.sql.SQLException;
+
 import sql.Database;
 
 public class Donor implements People {
 	public Donor() {}
 	
 	@Override
-	public void add(String name, String id, String bloodtype) {
+	public void add(String name, String id, String bloodtype) throws SQLException {
 		Database.readCommand("INSERT INTO Donor VALUES ('"+ name + "', '" + id + "', '" + bloodtype + "')");
 	}
 

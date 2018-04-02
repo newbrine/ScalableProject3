@@ -2,7 +2,7 @@ package GUI;
 
 import java.util.ArrayList;
 
-import People.Patient;
+import people.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

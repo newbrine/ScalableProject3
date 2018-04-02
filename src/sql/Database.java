@@ -35,4 +35,19 @@ public class Database {
     	results.close();
     	return results;
     }
+    
+    public static void printAll(String command) throws SQLException {
+    	readCommand(command);
+    	ResultSet results = stat.getResultSet();
+    	while (results.next()) {
+    		String name1 = results.getString("Name");
+    		String id = results.getString("Id");
+    		String type = results.getString("Bloodtype");
+    		System.out.println(name1);
+    		System.out.println(id);
+    		System.out.println(type);
+    	}
+    	System.out.println();
+    	results.close();
+    }
 }
