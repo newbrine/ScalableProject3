@@ -29,7 +29,7 @@ public class PatientTest {
 	
 	@Test
 	public void removeTest() throws ClassNotFoundException, SQLException {
-		patient.remove("'001'");
+		patient.remove("001");
 		Database.readCommand("SELECT * FROM Patient");
 		ResultSet results = Database.getAndCloseResults();
 		assertFalse(results.next());

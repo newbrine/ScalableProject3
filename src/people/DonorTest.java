@@ -29,7 +29,7 @@ public class DonorTest {
 	
 	@Test
 	public void removeTest() throws ClassNotFoundException, SQLException {
-		donor.remove("'001'");
+		donor.remove("001");
 		Database.readCommand("SELECT * FROM Donor");
 		ResultSet results = Database.getAndCloseResults();
 		assertFalse(results.next());
