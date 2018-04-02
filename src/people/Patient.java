@@ -16,8 +16,8 @@ public class Patient implements People {
 	public void remove(String id) {
 		Database database = new Database();
 		try {
-			PreparedStatement pstmt = database.prepareStat("DELETE Patient WHERE Id = ?");
-			pstmt.setString(2, id);
+			PreparedStatement pstmt = database.prepareStat("DELETE FROM Patient WHERE Id = ?");
+			pstmt.setString(1, id);
 			pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
