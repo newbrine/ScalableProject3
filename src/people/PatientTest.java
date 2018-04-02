@@ -16,7 +16,7 @@ public class PatientTest {
 		Database.readCommand("DROP TABLE IF EXISTS Patient");
 		Database.readCommand("CREATE TABLE Patient (Name TEXT, Id TEXT, Bloodtype TEXT)");
 		patient.add("ali", "001", "O");
-		Database.readCommand("select * from Patient");
+		Database.readCommand("SELECT * FROM Patient");
 		ResultSet results = Database.getResults();
 		String name1 = results.getString("Name");
 		String id = results.getString("Id");
@@ -30,7 +30,7 @@ public class PatientTest {
 	@Test
 	public void removeTest() throws ClassNotFoundException, SQLException {
 		patient.remove("'001'");
-		Database.readCommand("select * from Patient");
+		Database.readCommand("SELECT * FROM Patient");
 		ResultSet results = Database.getAndCloseResults();
 		assertFalse(results.next());
 	}
