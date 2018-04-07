@@ -52,10 +52,12 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
+		
 	}
 	
 	@FXML
 	public void matchPatientToDonor() {
+		
 	}
 	
 	public void clearTextFields() {
