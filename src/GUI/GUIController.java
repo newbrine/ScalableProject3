@@ -1,14 +1,14 @@
 package GUI;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import people.Donor;
-import people.Patient;
+import People.Donor;
+import People.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
@@ -24,7 +24,10 @@ public class GUIController {
 	TextField id;
 	
 	@FXML
-	TextField bloodType;
+	ChoiceBox bloodType;
+	
+	@FXML
+	TextField removeID;
 	
 	Patient patient;
 	Donor donor;
@@ -32,28 +35,18 @@ public class GUIController {
 	public void initialize() {
 		patient = new Patient();
 		donor = new Donor();
+		bloodType.setItems(FXCollections.observableArrayList("AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"));
 	}
 	
 	@FXML
-	public void addNewPatient() {
-		patient.add(name.getText(), id.getText(), bloodType.getText());
-		clearTextFields();
-	}
-	
-	public void addNewDonor() {
-		donor.add(name.getText(), id.getText(), bloodType.getText());
+	public void addNewPatientOrDonor() {
+		patient.add(name.getText(), id.getText(), bloodType.toString());
 		clearTextFields();
 	}
 	
 	@FXML
-	public void deletePatient() {
-		patient.remove(id.getText());
-		clearTextFields();
-	}
-	
-	@FXML
-	public void deleteDonor() {
-		donor.remove(id.getText());
+	public void deletePatientOrDonor() {
+		patient.remove(removeID.getText());
 		clearTextFields();
 	}
 	
@@ -64,7 +57,7 @@ public class GUIController {
 	}
 	
 	@FXML
-	public void matchPatientDonor() {
+	public void matchPatientToDonor() {
 		GUIPopups popups = new GUIPopups();
 		popups.MatchPatientDonor();
 	}
@@ -72,6 +65,5 @@ public class GUIController {
 	public void clearTextFields() {
 		name.clear();
 		id.clear();
-		bloodType.clear();
 	}
 }
