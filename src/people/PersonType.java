@@ -3,15 +3,15 @@ package people;
 public enum PersonType {
 	PATIENT {
 		@Override
-		int type() {
-			return 0;
+		String type() {
+			return "Patient";
 		}
 	}, DONOR {
 		@Override
-		int type() {
-			return 1;
+		String type() {
+			return "Donor";
 		}
 	};
 	
-	abstract int type();
+	abstract String type();
 }
