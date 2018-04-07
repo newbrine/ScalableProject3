@@ -8,8 +8,8 @@ public class Patient implements People {
 	public Patient() {}
 	
 	@Override
-	public void add(String name, String id, String bloodtype) {
-		Database.readCommand("INSERT INTO Patient VALUES ('" + name + "', '" + id + "', '" + bloodtype + "')");
+	public void add(String name, String id, String bloodtype, String organ) {
+		Database.readCommand("INSERT INTO Patient VALUES ('"+ name + "', '" + id + "', '" + bloodtype + "', '" + organ + "')");
 		try {
 			Database.printAll("Patient");
 		} catch (SQLException e) {
