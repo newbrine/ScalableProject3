@@ -2,8 +2,8 @@ package GUI;
 
 import java.util.ArrayList;
 
-import People.Donor;
-import People.Patient;
+import people.Donor;
+import people.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -52,14 +52,10 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
-		GUIPopups popups = new GUIPopups();
-		popups.SearchPatientDonor();
 	}
 	
 	@FXML
 	public void matchPatientToDonor() {
-		GUIPopups popups = new GUIPopups();
-		popups.MatchPatientDonor();
 	}
 	
 	public void clearTextFields() {

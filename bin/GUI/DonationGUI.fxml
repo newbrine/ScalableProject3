@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
@@ -16,14 +17,17 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="139.0" layoutY="97.0" text="Name:" />
-                        <Label layoutX="140.0" layoutY="135.0" text="ID Number:" />
-                        <Label layoutX="139.0" layoutY="170.0" text="Blood Type:" />
-                        <TextField fx:id="name" layoutX="253.0" layoutY="92.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor Name" />
-                        <TextField fx:id="id" layoutX="253.0" layoutY="130.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor ID Number" />
-                        <TextField fx:id="bloodType" layoutX="253.0" layoutY="165.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor Blood Type" />
-                        <Button layoutX="202.0" layoutY="238.0" mnemonicParsing="false" onAction="#addNewPatient" text="Add Patient" />
-                        <Button layoutX="349.0" layoutY="238.0" mnemonicParsing="false" text="Add Donor" />
+                        <Label layoutX="15.0" layoutY="15.0" text="Name:" />
+                        <Label layoutX="15.0" layoutY="75.0" text="ID Number:" />
+                        <Label layoutX="15.0" layoutY="195.0" text="Blood Type:" />
+                        <TextField fx:id="name" layoutX="15.0" layoutY="35.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor Name" />
+                        <TextField fx:id="id" layoutX="15.0" layoutY="95.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor ID Number" />
+                        <TextField layoutX="15.0" layoutY="155.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor Blood Type" />
+                        <Button layoutX="60.0" layoutY="320.0" mnemonicParsing="false" onAction="#addNewPatientOrDonor" text="Add" />
+                        <ChoiceBox fx:id="bloodType" layoutX="15.0" layoutY="215.0" prefWidth="150.0" />
+                        <Label layoutX="15.0" layoutY="135.0" text="Able to Donate/Need" />
+                        <Label layoutX="15.0" layoutY="255.0" text="Patient/Donor" />
+                        <ChoiceBox layoutX="15.0" layoutY="275.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </content></Tab>
@@ -47,7 +51,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="140.0" layoutY="135.0" text="ID Number:" />
-                        <TextField layoutX="253.0" layoutY="130.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor ID Number" />
+                        <TextField fx:id="removeID" layoutX="253.0" layoutY="130.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor ID Number" />
                         <Button layoutX="202.0" layoutY="238.0" mnemonicParsing="false" text="Remove Patient" />
                         <Button layoutX="349.0" layoutY="238.0" mnemonicParsing="false" text="Remove Donor" />
                      </children>
@@ -61,15 +65,6 @@
                         <TextField layoutX="14.0" layoutY="90.0" prefHeight="31.0" prefWidth="236.0" promptText="Enter Patient/Donor ID Number" />
                         <Button layoutX="70.0" layoutY="150.0" mnemonicParsing="false" text="Find Match" />
                         <ListView layoutX="300.0" prefHeight="363.0" prefWidth="300.0" />
-                     </children>
-                  </AnchorPane>
-               </content></Tab>
-          <Tab text="View">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <ListView layoutX="300.0" prefHeight="363.0" prefWidth="300.0" />
-                        <Button layoutX="120.0" layoutY="166.0" mnemonicParsing="false" text="Update" />
                      </children>
                   </AnchorPane>
                </content></Tab>
