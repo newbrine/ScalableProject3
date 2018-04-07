@@ -2,13 +2,14 @@ package GUI;
 
 import java.util.ArrayList;
 
-import people.Donor;
-import people.Patient;
+import People.Donor;
+import People.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
@@ -24,7 +25,13 @@ public class GUIController {
 	TextField id;
 	
 	@FXML
-	ChoiceBox bloodType;
+	ComboBox bloodType;
+	
+	@FXML
+	ComboBox patientOrDonor;
+	
+	@FXML
+	TextField availableBloodOrOrgans;
 	
 	@FXML
 	TextField removeID;
@@ -35,12 +42,13 @@ public class GUIController {
 	public void initialize() {
 		patient = new Patient();
 		donor = new Donor();
-		bloodType.setItems(FXCollections.observableArrayList("AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"));
+		bloodTypeSetup();
+		patientDonorSetup();
 	}
 	
 	@FXML
 	public void addNewPatientOrDonor() {
-		patient.add(name.getText(), id.getText(), bloodType.toString());
+		patient.add(name.getText(), id.getText(), bloodType.getValue(), availableBloodOrOrgans.getText());
 		clearTextFields();
 	}
 	
@@ -63,5 +71,15 @@ public class GUIController {
 	public void clearTextFields() {
 		name.clear();
 		id.clear();
+	}
+	
+	public void bloodTypeSetup() {
+		bloodType.setItems(FXCollections.observableArrayList("AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"));
+		bloodType.setPromptText("Select Blood Type");
+	}
+	
+	public void patientDonorSetup() {
+		patientOrDonor.setItems(FXCollections.observableArrayList("Patient", "Donor"));
+		patientOrDonor.setPromptText("Select Patient or Donor");
 	}
 }
