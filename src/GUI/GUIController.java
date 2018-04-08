@@ -1,7 +1,7 @@
 package GUI;
 
-import People.Donor;
-import People.Patient;
+import people.Donor;
+import people.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -86,7 +86,7 @@ public class GUIController {
 		} else {
 			donor.remove(removeID.getText());
 		}
-		clearFields(null, removeID, null, null, removePatientOrDonor);
+		clearRemoveFields();
 	}
 	
 	@FXML
@@ -95,11 +95,16 @@ public class GUIController {
 	}
 	
 	public void clearFields(TextField name, TextField id, TextField available, ComboBox<String> bloodType, ComboBox<String> patientDonor) {
-		if(name != null) {name.clear();}
-		if(id != null) {id.clear();}
-		if(available != null) {available.clear();}
-		if(bloodType != null) {bloodType.valueProperty().set(null);}
-		if(patientDonor != null) {patientDonor.valueProperty().set(null);}
+		name.clear();
+		id.clear();
+		available.clear();
+		bloodType.valueProperty().set(null);
+		patientDonor.valueProperty().set(null);
+	}
+	
+	public void clearRemoveFields() {
+		removeID.clear();
+		removePatientOrDonor.valueProperty().set(null);
 	}
 	
 	public void bloodTypeSetup(ComboBox<String> bloodTypeBox) {
