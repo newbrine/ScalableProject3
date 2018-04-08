@@ -38,8 +38,4 @@ public class Patient implements People {
 			e1.printStackTrace();
 		}
 	}
-	
-	public boolean isMatch(String bloodtype1, String bloodtype2) {
-		return bloodtype1.equals(bloodtype2);
-	}
 }
