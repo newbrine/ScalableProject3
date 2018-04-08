@@ -33,7 +33,8 @@ public class DonorTest {
 	public void removeTest() throws ClassNotFoundException, SQLException {
 		donor.remove("001");
 		Database.readCommand("SELECT * FROM Donor");
-		ResultSet results = Database.getAndCloseResults();
+		ResultSet results = Database.getResults();
 		assertFalse(results.next());
+		Database.closeResults(results);
 	}
 }

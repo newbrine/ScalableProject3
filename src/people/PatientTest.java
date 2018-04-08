@@ -33,7 +33,8 @@ public class PatientTest {
 	public void removeTest() throws ClassNotFoundException, SQLException {
 		patient.remove("001");
 		Database.readCommand("SELECT * FROM Patient");
-		ResultSet result = Database.getAndCloseResults();
+		ResultSet result = Database.getResults();
 		assertFalse(result.next());
+		Database.closeResults(result);
 	}
 }
