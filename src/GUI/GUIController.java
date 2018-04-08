@@ -1,9 +1,7 @@
 package GUI;
 
-import java.util.ArrayList;
-
-import people.Donor;
-import people.Patient;
+import People.Donor;
+import People.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,67 +17,105 @@ import javafx.scene.layout.Pane;
 public class GUIController {
 	
 	@FXML
-	TextField name;
+	TextField addName;
 	
 	@FXML
-	TextField id;
+	TextField addID;
 	
 	@FXML
-	ComboBox bloodType;
+	TextField addAvailableBloodOrOrgans;
 	
 	@FXML
-	ComboBox patientOrDonor;
+	ComboBox<String> addBloodType;
 	
 	@FXML
-	TextField availableBloodOrOrgans;
+	ComboBox<String> addPatientOrDonor;
+	
+	@FXML
+	TextField searchName;
+	
+	@FXML
+	TextField searchID;
+	
+	@FXML
+	TextField searchAvailableBloodOrOrgans;
+	
+	@FXML
+	ComboBox<String> searchBloodType;
+	
+	@FXML
+	ComboBox<String> searchPatientOrDonor;
 	
 	@FXML
 	TextField removeID;
 	
+	@FXML
+	ComboBox<String> removePatientOrDonor;
+	
+	@FXML
+	ListView searchResults;
+	
 	Patient patient;
 	Donor donor;
+	
 	@FXML
 	public void initialize() {
 		patient = new Patient();
 		donor = new Donor();
-		bloodTypeSetup();
-		patientDonorSetup();
+		bloodTypeSetup(addBloodType);
+		bloodTypeSetup(searchBloodType);
+		patientDonorSetup(addPatientOrDonor);
+		patientDonorSetup(searchPatientOrDonor);
+		patientDonorSetup(removePatientOrDonor);
 	}
 	
 	@FXML
 	public void addNewPatientOrDonor() {
-		patient.add(name.getText(), id.getText(), bloodType.getValue().toString(), availableBloodOrOrgans.getText());
-		clearTextFields();
+		if (addPatientOrDonor.getValue() == "Patient") {
+			patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addAvailableBloodOrOrgans.getText());
+		} else {
+			donor.add(addName.getText(), addID.getText(), addBloodType.getValue(), addAvailableBloodOrOrgans.getText());
+		}
+		addClearFields();
 	}
 	
 	@FXML
 	public void deletePatientOrDonor() {
-		patient.remove(removeID.getText());
-		clearTextFields();
+		if (removePatientOrDonor.getValue() == "Patient") {
+			patient.remove(removeID.getText());
+		} else {
+			donor.remove(removeID.getText());
+		}
+		removeClearFields();
 	}
 	
 	@FXML
 	public void searchPatientDonor() {
-		
+		searchClearFields();
 	}
 	
-	@FXML
-	public void matchPatientToDonor() {
-		
+	public void addClearFields() {
+		addName.clear();
+		addID.clear();
+		addAvailableBloodOrOrgans.clear();
 	}
 	
-	public void clearTextFields() {
-		name.clear();
-		id.clear();
+	public void removeClearFields() {
+		removeID.clear();
 	}
 	
-	public void bloodTypeSetup() {
-		bloodType.setItems(FXCollections.observableArrayList("AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"));
-		bloodType.setPromptText("Select Blood Type");
+	public void searchClearFields() {
+		searchName.clear();
+		searchID.clear();
+		searchAvailableBloodOrOrgans.clear();
 	}
 	
-	public void patientDonorSetup() {
-		patientOrDonor.setItems(FXCollections.observableArrayList("Patient", "Donor"));
-		patientOrDonor.setPromptText("Select Patient or Donor");
+	public void bloodTypeSetup(ComboBox<String> bloodTypeBox) {
+		bloodTypeBox.setItems(FXCollections.observableArrayList("AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"));
+	}
+	
+	public void patientDonorSetup(ComboBox<String> patientOrDonorBox) {
+		patientOrDonorBox.setItems(FXCollections.observableArrayList("Patient", "Donor"));
+		patientOrDonorBox.setPromptText("Select Patient or Donor");
 	}
 }
