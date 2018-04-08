@@ -86,12 +86,20 @@ public class GUIController {
 		} else {
 			donor.remove(removeID.getText());
 		}
-		removeClearFields();
+		clearFields(null, removeID, null, null, removePatientOrDonor);
 	}
 	
 	@FXML
 	public void searchPatientDonor() {
 		searchClearFields();
+	}
+	
+	public void clearFields(TextField name, TextField id, TextField available, ComboBox<String> bloodType, ComboBox<String> patientDonor) {
+		if(name != null) {name.clear();}
+		if(id != null) {id.clear();}
+		if(available != null) {available.clear();}
+		if(bloodType != null) {bloodType.valueProperty().set(null);}
+		if(patientDonor != null) {patientDonor.valueProperty().set(null);}
 	}
 	
 	public void addClearFields() {
