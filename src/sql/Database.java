@@ -43,11 +43,9 @@ public class Database {
     		String name1 = results.getString("Name");
     		String id = results.getString("Id");
     		String type = results.getString("Bloodtype");
-    		String organ = results.getString("Organ");
     		System.out.println(name1);
     		System.out.println(id);
     		System.out.println(type);
-    		System.out.println(organ);
     	}
     	results.close();
     }
