@@ -98,16 +98,21 @@ public class GUIController {
 		addName.clear();
 		addID.clear();
 		addAvailableBloodOrOrgans.clear();
+		addBloodType.valueProperty().set(null);
+		addPatientOrDonor.valueProperty().set(null);
 	}
 	
 	public void removeClearFields() {
 		removeID.clear();
+		removePatientOrDonor.valueProperty().set(null);
 	}
 	
 	public void searchClearFields() {
 		searchName.clear();
 		searchID.clear();
 		searchAvailableBloodOrOrgans.clear();
+		searchBloodType.valueProperty().set(null);
+		searchPatientOrDonor.valueProperty().set(null);
 	}
 	
 	public void bloodTypeSetup(ComboBox<String> bloodTypeBox) {
