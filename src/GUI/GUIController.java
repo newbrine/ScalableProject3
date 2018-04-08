@@ -1,7 +1,7 @@
 package GUI;
 
-import people.Donor;
-import people.Patient;
+import People.Donor;
+import People.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -76,7 +76,7 @@ public class GUIController {
 		} else {
 			donor.add(addName.getText(), addID.getText(), addBloodType.getValue(), addAvailableBloodOrOrgans.getText());
 		}
-		addClearFields();
+		clearFields(addName, addID, addAvailableBloodOrOrgans, addBloodType, addPatientOrDonor);
 	}
 	
 	@FXML
@@ -91,7 +91,7 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
-		searchClearFields();
+		clearFields(searchName, searchID, searchAvailableBloodOrOrgans, searchBloodType, searchPatientOrDonor);
 	}
 	
 	public void clearFields(TextField name, TextField id, TextField available, ComboBox<String> bloodType, ComboBox<String> patientDonor) {
@@ -100,27 +100,6 @@ public class GUIController {
 		if(available != null) {available.clear();}
 		if(bloodType != null) {bloodType.valueProperty().set(null);}
 		if(patientDonor != null) {patientDonor.valueProperty().set(null);}
-	}
-	
-	public void addClearFields() {
-		addName.clear();
-		addID.clear();
-		addAvailableBloodOrOrgans.clear();
-		addBloodType.valueProperty().set(null);
-		addPatientOrDonor.valueProperty().set(null);
-	}
-	
-	public void removeClearFields() {
-		removeID.clear();
-		removePatientOrDonor.valueProperty().set(null);
-	}
-	
-	public void searchClearFields() {
-		searchName.clear();
-		searchID.clear();
-		searchAvailableBloodOrOrgans.clear();
-		searchBloodType.valueProperty().set(null);
-		searchPatientOrDonor.valueProperty().set(null);
 	}
 	
 	public void bloodTypeSetup(ComboBox<String> bloodTypeBox) {
