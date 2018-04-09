@@ -75,7 +75,8 @@ public class GUIController {
 	@FXML
 	public void addNewPatientOrDonor() {
 		if(!checkName(addName.getText())) {System.out.println("The name must only contain alphanumeric characters.");}
-		else if(!checkID(addID.getText())) {System.out.println("The ID number must only contain numbers.");} 
+		else if(!checkID(addID.getText())) {System.out.println("The ID number must only contain numbers.");}
+		else if(addPatientOrDonor.getValue() == null) {System.out.println("Choose if this person is a Patient or Donor.");}
 		else {
 			if (addPatientOrDonor.getValue().equals("Patient")) {
 				patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
@@ -89,6 +90,7 @@ public class GUIController {
 	@FXML
 	public void deletePatientOrDonor() {
 		if(!checkID(removeID.getText())) {System.out.println("The ID number must only contain numbers.");}
+		else if(removePatientOrDonor.getValue() == null) {System.out.println("Choose if this person is a Patient or Donor.");}
 		else {
 			if (removePatientOrDonor.getValue().equals("Patient")) {
 				patient.remove(removeID.getText());
@@ -103,6 +105,7 @@ public class GUIController {
 	public void searchPatientDonor() {
 		if(!searchName.getText().isEmpty() && !checkName(searchName.getText())) {System.out.println("The name must only contain alphanumeric characters.");}
 		else if(!searchID.getText().isEmpty() && !checkID(searchID.getText())) {System.out.println("The ID number must only contain numbers.");}
+		else if(searchPatientOrDonor.getValue() == null) {System.out.println("Choose if this person is a Patient or Donor.");}
 		else {
 			results.clear();
 			if (searchPatientOrDonor.getValue().equals("Patient")) {
