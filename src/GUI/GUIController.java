@@ -19,7 +19,7 @@ public class GUIController {
 	TextField addID;
 	
 	@FXML
-	TextField addOrgans;
+	ComboBox<String> addOrgans;
 	
 	@FXML
 	ComboBox<String> addBloodType;
@@ -34,7 +34,7 @@ public class GUIController {
 	TextField searchID;
 	
 	@FXML
-	TextField searchOrgans;
+	ComboBox<String> searchOrgans;
 	
 	@FXML
 	ComboBox<String> searchBloodType;
@@ -61,6 +61,8 @@ public class GUIController {
 		donor = new Donor();
 		bloodTypeSetup(addBloodType);
 		bloodTypeSetup(searchBloodType);
+		organSetup(addOrgans);
+		organSetup(searchOrgans);
 		patientDonorSetup(addPatientOrDonor);
 		patientDonorSetup(searchPatientOrDonor);
 		patientDonorSetup(removePatientOrDonor);
@@ -69,9 +71,9 @@ public class GUIController {
 	@FXML
 	public void addNewPatientOrDonor() {
 		if (addPatientOrDonor.getValue().equals("Patient")) {
-			patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getText());
+			patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
 		} else {
-			donor.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getText());
+			donor.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
 		}
 		clearFields(addName, addID, addOrgans, addBloodType, addPatientOrDonor);
 	}
@@ -90,7 +92,7 @@ public class GUIController {
 	public void searchPatientDonor() {
 		if (searchPatientOrDonor.getValue().equals("Patient")) {
 			try {
-				results.addAll(patient.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getText()));
+				results.addAll(patient.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue()));
 				updateListView();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -98,7 +100,7 @@ public class GUIController {
 			}
 		else {
 			try {
-				donor.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getText());
+				donor.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -106,16 +108,20 @@ public class GUIController {
 		clearFields(searchName, searchID, searchOrgans, searchBloodType, searchPatientOrDonor);
 	}
 	
-	public void clearFields(TextField name, TextField id, TextField available, ComboBox<String> bloodType, ComboBox<String> patientDonor) {
+	public void clearFields(TextField name, TextField id, ComboBox<String> available, ComboBox<String> bloodType, ComboBox<String> patientDonor) {
 		if(name != null) {name.clear();}
 		if(id != null) {id.clear();}
-		if(available != null) {available.clear();}
+		if(available != null) {available.valueProperty().set(null);;}
 		if(bloodType != null) {bloodType.valueProperty().set(null);}
 		if(patientDonor != null) {patientDonor.valueProperty().set(null);}
 	}
 	
 	public void bloodTypeSetup(ComboBox<String> bloodTypeBox) {
 		bloodTypeBox.setItems(FXCollections.observableArrayList("AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"));
+	}
+	
+	public void organSetup(ComboBox<String> organBox) {
+		organBox.setItems(FXCollections.observableArrayList("Heart", "Kidney", "Liver", "Lung", "Pancreas", "Bone Marrow", "Tendon", "Skin", "Heart Valve", "Blood"));
 	}
 	
 	public void patientDonorSetup(ComboBox<String> patientOrDonorBox) {
@@ -126,48 +132,4 @@ public class GUIController {
 	public void updateListView() {
 		searchResults.setItems(results);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
