@@ -1,11 +1,10 @@
-package people;
+package People;
 
 import static org.junit.Assert.*;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.Test;
-import sql.Database;
+import SQL.Database;
 
 public class PatientTest {
 	Patient patient = new Patient();

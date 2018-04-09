@@ -1,9 +1,11 @@
-package people;
+package People;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import sql.Database;
+import SQL.Database;
 
 public class Patient implements People {
 	public Patient() {}
@@ -38,17 +40,110 @@ public class Patient implements People {
 			e1.printStackTrace();
 		}
 	}
-	public void search(String name, String id, String bloodType, String organ) throws SQLException {
-		Database.readCommand("SELECT * FROM Patient WHERE Id = '" + id + "'" + "OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "'OR Organ = '" + organ + "'" );
+	
+	@Override
+	public ArrayList<String> search(String name, String id, String bloodType, String organ) throws SQLException {		
+		ArrayList<String> outputResult = new ArrayList<String>();
+		Database.readCommand("SELECT * FROM Patient WHERE Id = '" + id + "' OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "' OR Organ = '" + organ + "'" );
 		ResultSet results = Database.getResults();
+		outputResult.add(formatString("Name", "ID", "BloodType", "Organ"));
 		while (results.next()) {
-			String name1 = results.getString("name");
-   	 	 	String type = results.getString("bloodtype");
-   	 	 	//String organ1 = results.getString("organ");
-   	 	 	
-   	 	 	System.out.println(name1);
-   	 	 	System.out.println(type);
-   	 	 	//System.out.println(organ1);
-        }
+			outputResult.add(formatString(results.getString("Name"), results.getString("Id"), results.getString("Bloodtype"), results.getString("Organ")));
+			outputResult.add("dont see me");
+		}
+		System.out.println(outputResult);
+		Database.closeResults(results);
+		return outputResult;
 	}
+	
+	public String formatResults(String name, String bloodType, String id, String organ) {
+		return "";
+	}
+	
+	public int longestValue(String searchValue) throws SQLException {
+		Database.readCommand("SELECT " + searchValue + " FROM Patient");
+		ResultSet nameList = Database.getResults();
+		int temp = 0;
+		while(nameList.next()) {
+			if(nameList.getString(searchValue).length() > temp) {
+				temp = nameList.getString(searchValue).length();
+			}
+		}
+		Database.closeResults(nameList);
+		return temp;
+	}
+	
+	public String formatString(String name, String id, String bloodType, String organ) throws SQLException {
+		int longestName = longestValue("Name");
+		int longestID = longestValue("Id");
+		int longestOrgan = longestValue("Organ");
+		int longestBloodType = 9;
+		String formatted = "";
+		
+		formatted = formatted + name;
+		while(formatted.length() <= longestName + 1) {
+			formatted = formatted + " ";
+		}
+		
+		formatted = formatted + id;
+		while(formatted.length() <= longestName + longestID + 2) {
+			formatted = formatted + " ";
+		}
+		
+		formatted = formatted + bloodType;
+		while(formatted.length() <= longestName + longestID + longestBloodType + 3) {
+			formatted = formatted + " ";
+		}
+		
+		formatted = formatted + organ;
+		while(formatted.length() <= longestName + longestID + longestBloodType + longestOrgan + 4) {
+			formatted = formatted + " ";
+		}
+		return formatted;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

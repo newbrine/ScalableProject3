@@ -1,9 +1,10 @@
-package people;
+package People;
 
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import sql.Database;
+import java.util.ArrayList;
+import java.sql.ResultSet;
+import SQL.Database;
 
 public class Donor implements People {
 	public Donor() {}
@@ -39,8 +40,8 @@ public class Donor implements People {
 		}
 	}
 	
-	
-	public void search(String name, String id, String bloodType, String organ) throws SQLException {
+	@Override
+	public ArrayList<String> search(String name, String id, String bloodType, String organ) throws SQLException {
 		Database.readCommand("SELECT * FROM Donor WHERE Id = '" + id + "'" + "OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "'OR Organ = '" + organ + "'" );
 		ResultSet results = Database.getResults();
 		while (results.next()) {
@@ -52,5 +53,6 @@ public class Donor implements People {
    	 	 	System.out.println(type);
    	 	 	//System.out.println(organ1);
         }
+		return new ArrayList<String>();
 		}
 }
