@@ -2,9 +2,14 @@ package GUI;
 
 import people.Donor;
 import people.Patient;
+<<<<<<< HEAD
 import sql.Database;
 
 import java.util.ArrayList;
+=======
+
+import java.sql.SQLException;
+>>>>>>> master
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +47,7 @@ public class GUIController {
 	TextField searchID;
 	
 	@FXML
-	TextField searchAvailableBloodOrOrgans;
+	TextField searchOrgans;
 	
 	@FXML
 	ComboBox<String> searchBloodType;
@@ -95,6 +100,7 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
+<<<<<<< HEAD
 		ArrayList<String> criteria = searchCriteria();
 		if (searchPatientOrDonor.getValue().equals("Patient")) {
 			String command = "SELECT * FROM Patient WHERE " + criteria.get(0);
@@ -111,6 +117,27 @@ public class GUIController {
 			Database.readCommand(command);
 		}
 		clearFields(searchName, searchID, searchAvailableBloodOrOrgans, searchBloodType, searchPatientOrDonor);
+=======
+		if (searchPatientOrDonor.getValue() == "Patient") {
+			try {
+				patient.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getText());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		else {
+			try {
+				donor.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getText());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		clearFields(searchName, searchID, searchOrgans, searchBloodType, searchPatientOrDonor);
+		
+		
+>>>>>>> master
 	}
 	
 	public void clearFields(TextField name, TextField id, TextField available, ComboBox<String> bloodType, ComboBox<String> patientDonor) {
@@ -135,6 +162,7 @@ public class GUIController {
 		patientOrDonorBox.setPromptText("Select Patient or Donor");
 	}
 	
+<<<<<<< HEAD
 	public ArrayList<String> searchCriteria() {
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("Name = ");
@@ -169,4 +197,6 @@ public class GUIController {
 		}
 		return list;
 	}
+=======
+>>>>>>> master
 }
