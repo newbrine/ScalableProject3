@@ -72,86 +72,9 @@ public class Patient implements People {
 		Database.closeResults(results);
 		return outputResult;
 	}
-	
-	public int longestValue(String searchValue) {
-		Database.readCommand("SELECT " + searchValue + " FROM Patient");
-		ResultSet nameList;
-		try {
-			nameList = Database.getResults();
-			int temp = 0;
-			while(nameList.next()) {
-				if(nameList.getString(searchValue).length() > temp) {
-					temp = nameList.getString(searchValue).length();
-				}
-			}
-			Database.closeResults(nameList);
-			return temp;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 0;
-		}
-	}
-	
-	int longestName = longestValue("Name");
-	int longestID = longestValue("Id");
-	int longestOrgan = longestValue("Organ");
-	int longestBloodType = 10;
+
 	public String formatString(String name, String id, String bloodType, String organ) throws SQLException {
-		String formatted = "";
-		
-		formatted = formatted + name;
-		for(int i = name.length(); i < (longestName + 1); i++) {
-			formatted = formatted + " ";
-		}
-		
-		formatted = formatted + id + "          " + bloodType + "          " + organ;
-		
+		String formatted = name + "  -  " + id + "  -  " + bloodType + "  -  " + organ;
 		return formatted;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
