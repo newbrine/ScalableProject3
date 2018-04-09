@@ -83,7 +83,7 @@ public class Patient implements People {
 		String formatted = "";
 		
 		formatted = formatted + name;
-		while(formatted.length() <= longestName) {
+		for(int i = name.length(); i < (longestName + 1); i++) {
 			formatted = formatted + " ";
 		}
 		

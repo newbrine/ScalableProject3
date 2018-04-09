@@ -75,9 +75,9 @@ public class GUIController {
 	
 	@FXML
 	public void addNewPatientOrDonor() {
-		if(checkErrors(addName, addID)) {
-			System.out.println("There is an error in one of the fields, please try again.");
-		} else {
+		if(!checkName(addName.getText())) {System.out.println("The name must only contain alphanumeric characters.");}
+		else if(!checkID(addID.getText())) {System.out.println("The ID number must only contain numbers.");} 
+		else {
 			if (addPatientOrDonor.getValue().equals("Patient")) {
 				patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
 			} else {
@@ -89,7 +89,7 @@ public class GUIController {
 	
 	@FXML
 	public void deletePatientOrDonor() {
-		if(!checkID(removeID.getText())) {System.out.println("The id number is invalid, please try again.");}
+		if(!checkID(removeID.getText())) {System.out.println("The ID number must only contain numbers.");}
 		else {
 			if (removePatientOrDonor.getValue().equals("Patient")) {
 				patient.remove(removeID.getText());
@@ -102,9 +102,9 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
-		if(checkErrors(addName, addID)) {
-			System.out.println("There is an error in one of the fields, please try again.");
-		} else {
+		if(!searchName.getText().isEmpty() && !checkName(searchName.getText())) {System.out.println("The name must only contain alphanumeric characters.");}
+		else if(!searchID.getText().isEmpty() && !checkID(searchID.getText())) {System.out.println("The ID number must only contain numbers.");}
+		else {
 			results.clear();
 			if (searchPatientOrDonor.getValue().equals("Patient")) {
 				try {
@@ -147,12 +147,6 @@ public class GUIController {
 	
 	public void updateListView() {
 		searchResults.setItems(results);
-	}
-	
-	public Boolean checkErrors(TextField name, TextField id) {
-		if(!checkName(name.getText())) {return true;}
-		if(!checkID(id.getText())) {return true;}
-		return false;
 	}
 	
 	//https://stackoverflow.com/questions/5238491/check-if-string-contains-only-letters
