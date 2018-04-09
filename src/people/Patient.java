@@ -50,6 +50,5 @@ public class Patient implements People {
    	 	 	System.out.println(type);
    	 	 	//System.out.println(organ1);
         }
-		}
-	
+	}
 }
