@@ -43,7 +43,26 @@ public class Patient implements People {
 	@Override
 	public ArrayList<String> search(String name, String id, String bloodType, String organ) throws SQLException {		
 		ArrayList<String> outputResult = new ArrayList<String>();
-		Database.readCommand("SELECT * FROM Patient WHERE Id = '" + id + "' OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "' OR Organ = '" + organ + "'" );
+		String command = "SELECT * FROM Patient WHERE";
+		if (!name.equals("")) {
+			command = command + " NAME = '" + name + "' AND";
+		}
+		if (!id.equals("")) {
+			command = command + " Id = '" + id + "' AND";
+		}
+		if (bloodType != null) {
+			command = command + " Bloodtype = '" + bloodType + "' AND";
+		}
+		if (organ != null) {
+			command = command + " Organ = '" + organ + "'";
+		}
+		if (command.substring(command.length() - 6).equals(" WHERE")) {
+			command = command.substring(0, command.length() - 6);
+		}
+		if (command.substring(command.length() - 4).equals(" AND")) {
+			command = command.substring(0, command.length() - 4);
+		}
+		Database.readCommand(command);
 		ResultSet results = Database.getResults();
 		outputResult.add(formatString("Name", "ID", "BloodType", "Organ"));
 		while (results.next()) {
