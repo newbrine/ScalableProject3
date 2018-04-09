@@ -2,6 +2,9 @@ package GUI;
 
 import people.Donor;
 import people.Patient;
+
+import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,7 +41,7 @@ public class GUIController {
 	TextField searchID;
 	
 	@FXML
-	TextField searchAvailableBloodOrOrgans;
+	TextField searchOrgans;
 	
 	@FXML
 	ComboBox<String> searchBloodType;
@@ -91,7 +94,25 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
-		clearFields(searchName, searchID, searchAvailableBloodOrOrgans, searchBloodType, searchPatientOrDonor);
+		if (searchPatientOrDonor.getValue() == "Patient") {
+			try {
+				patient.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getText());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		else {
+			try {
+				donor.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getText());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		clearFields(searchName, searchID, searchOrgans, searchBloodType, searchPatientOrDonor);
+		
+		
 	}
 	
 	public void clearFields(TextField name, TextField id, TextField available, ComboBox<String> bloodType, ComboBox<String> patientDonor) {
@@ -115,4 +136,5 @@ public class GUIController {
 		patientOrDonorBox.setItems(FXCollections.observableArrayList("Patient", "Donor"));
 		patientOrDonorBox.setPromptText("Select Patient or Donor");
 	}
+	
 }
