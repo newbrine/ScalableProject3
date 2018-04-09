@@ -1,5 +1,6 @@
 package People;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ public class Patient implements People {
 		outputResult.add(formatString("Name", "ID", "BloodType", "Organ"));
 		while (results.next()) {
 			outputResult.add(formatString(results.getString("Name"), results.getString("Id"), results.getString("Bloodtype"), results.getString("Organ")));
-			outputResult.add("dont see me");
 		}
 		System.out.println(outputResult);
 		Database.closeResults(results);
@@ -56,9 +56,10 @@ public class Patient implements People {
 	}
 	
 	public int longestValue(String searchValue) {
+		Database.readCommand("SELECT " + searchValue + " FROM Patient");
+		ResultSet nameList;
 		try {
-			Database.readCommand("SELECT " + searchValue + " FROM Patient");
-			ResultSet nameList = Database.getResults();
+			nameList = Database.getResults();
 			int temp = 0;
 			while(nameList.next()) {
 				if(nameList.getString(searchValue).length() > temp) {
@@ -67,7 +68,8 @@ public class Patient implements People {
 			}
 			Database.closeResults(nameList);
 			return temp;
-		} catch(SQLException e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
 		}
@@ -76,30 +78,62 @@ public class Patient implements People {
 	int longestName = longestValue("Name");
 	int longestID = longestValue("Id");
 	int longestOrgan = longestValue("Organ");
-	int longestBloodType = 9;
-	
+	int longestBloodType = 10;
 	public String formatString(String name, String id, String bloodType, String organ) throws SQLException {
 		String formatted = "";
 		
 		formatted = formatted + name;
-		while(formatted.length() <= longestName + 1) {
+		while(formatted.length() <= longestName) {
 			formatted = formatted + " ";
 		}
 		
-		formatted = formatted + id;
-		while(formatted.length() <= longestName + longestID + 2) {
-			formatted = formatted + " ";
-		}
+		formatted = formatted + id + "          " + bloodType + "          " + organ;
 		
-		formatted = formatted + bloodType;
-		while(formatted.length() <= longestName + longestID + longestBloodType + 3) {
-			formatted = formatted + " ";
-		}
-		
-		formatted = formatted + organ;
-		while(formatted.length() <= longestName + longestID + longestBloodType + longestOrgan + 4) {
-			formatted = formatted + " ";
-		}
 		return formatted;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class GUIController {
 	
@@ -51,6 +53,9 @@ public class GUIController {
 	@FXML
 	ListView<String> searchResults;
 	
+	@FXML
+	ImageView joshPic;
+	
 	Patient patient;
 	Donor donor;
 	ObservableList<String> results = FXCollections.observableArrayList();
@@ -70,39 +75,51 @@ public class GUIController {
 	
 	@FXML
 	public void addNewPatientOrDonor() {
-		if (addPatientOrDonor.getValue().equals("Patient")) {
-			patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
+		if(checkErrors(addName, addID)) {
+			System.out.println("There is an error in one of the fields, please try again.");
 		} else {
-			donor.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
+			if (addPatientOrDonor.getValue().equals("Patient")) {
+				patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
+			} else {
+				donor.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
+			}
 		}
 		clearFields(addName, addID, addOrgans, addBloodType, addPatientOrDonor);
 	}
 	
 	@FXML
 	public void deletePatientOrDonor() {
-		if (removePatientOrDonor.getValue().equals("Patient")) {
-			patient.remove(removeID.getText());
-		} else {
-			donor.remove(removeID.getText());
+		if(!checkID(removeID.getText())) {System.out.println("The id number is invalid, please try again.");}
+		else {
+			if (removePatientOrDonor.getValue().equals("Patient")) {
+				patient.remove(removeID.getText());
+			} else {
+				donor.remove(removeID.getText());
+			}
 		}
 		clearFields(null, removeID, null, null, removePatientOrDonor);
 	}
 	
 	@FXML
 	public void searchPatientDonor() {
-		if (searchPatientOrDonor.getValue().equals("Patient")) {
-			try {
-				results.addAll(patient.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue()));
-				updateListView();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			}
-		else {
-			try {
-				donor.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue());
-			} catch (SQLException e) {
-				e.printStackTrace();
+		if(checkErrors(addName, addID)) {
+			System.out.println("There is an error in one of the fields, please try again.");
+		} else {
+			results.clear();
+			if (searchPatientOrDonor.getValue().equals("Patient")) {
+				try {
+					results.addAll(patient.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue()));
+					updateListView();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					results.addAll(donor.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue()));
+					updateListView();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		clearFields(searchName, searchID, searchOrgans, searchBloodType, searchPatientOrDonor);
@@ -126,10 +143,29 @@ public class GUIController {
 	
 	public void patientDonorSetup(ComboBox<String> patientOrDonorBox) {
 		patientOrDonorBox.setItems(FXCollections.observableArrayList("Patient", "Donor"));
-		patientOrDonorBox.setPromptText("Select Patient or Donor");
 	}
 	
 	public void updateListView() {
 		searchResults.setItems(results);
+	}
+	
+	public Boolean checkErrors(TextField name, TextField id) {
+		if(!checkName(name.getText())) {return true;}
+		if(!checkID(id.getText())) {return true;}
+		return false;
+	}
+	
+	//https://stackoverflow.com/questions/5238491/check-if-string-contains-only-letters
+	public Boolean checkName(String name) {
+		return name.matches("[a-zA-Z]+");
+	}
+	
+	public Boolean checkID(String id) {
+		return id.matches("[0-9]+");
+	}
+	
+	@FXML
+	public void showJosh() {
+		joshPic.setVisible(true);
 	}
 }

@@ -39,20 +39,55 @@ public class Donor implements People {
 			e1.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public ArrayList<String> search(String name, String id, String bloodType, String organ) throws SQLException {
-		Database.readCommand("SELECT * FROM Donor WHERE Id = '" + id + "'" + "OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "'OR Organ = '" + organ + "'" );
+	public ArrayList<String> search(String name, String id, String bloodType, String organ) throws SQLException {		
+		ArrayList<String> outputResult = new ArrayList<String>();
+		Database.readCommand("SELECT * FROM Donor WHERE Id = '" + id + "' OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "' OR Organ = '" + organ + "'" );
 		ResultSet results = Database.getResults();
+		outputResult.add(formatString("Name", "ID", "BloodType", "Organ"));
 		while (results.next()) {
-			String name1 = results.getString("name");
-   	 	 	String type = results.getString("bloodtype");
-   	 	 	//String organ1 = results.getString("organ");
-   	 	 	
-   	 	 	System.out.println(name1);
-   	 	 	System.out.println(type);
-   	 	 	//System.out.println(organ1);
-        }
-		return new ArrayList<String>();
+			outputResult.add(formatString(results.getString("Name"), results.getString("Id"), results.getString("Bloodtype"), results.getString("Organ")));
 		}
+		System.out.println(outputResult);
+		Database.closeResults(results);
+		return outputResult;
+	}
+	
+	public int longestValue(String searchValue) {
+		Database.readCommand("SELECT " + searchValue + " FROM Donor");
+		ResultSet nameList;
+		try {
+			nameList = Database.getResults();
+			int temp = 0;
+			while(nameList.next()) {
+				if(nameList.getString(searchValue).length() > temp) {
+					temp = nameList.getString(searchValue).length();
+				}
+			}
+			Database.closeResults(nameList);
+			return temp;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	int longestName = longestValue("Name");
+	int longestID = longestValue("Id");
+	int longestOrgan = longestValue("Organ");
+	int longestBloodType = 10;
+	public String formatString(String name, String id, String bloodType, String organ) throws SQLException {
+		String formatted = "";
+		
+		formatted = formatted + name;
+		while(formatted.length() <= longestName) {
+			formatted = formatted + " ";
+		}
+		
+		formatted = formatted + id + "          " + bloodType + "          " + organ;
+		
+		return formatted;
+	}
 }
