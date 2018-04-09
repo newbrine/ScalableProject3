@@ -1,6 +1,5 @@
 package People;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,28 +55,30 @@ public class Patient implements People {
 		return outputResult;
 	}
 	
-	public String formatResults(String name, String bloodType, String id, String organ) {
-		return "";
+	public int longestValue(String searchValue) {
+		try {
+			Database.readCommand("SELECT " + searchValue + " FROM Patient");
+			ResultSet nameList = Database.getResults();
+			int temp = 0;
+			while(nameList.next()) {
+				if(nameList.getString(searchValue).length() > temp) {
+					temp = nameList.getString(searchValue).length();
+				}
+			}
+			Database.closeResults(nameList);
+			return temp;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	
-	public int longestValue(String searchValue) throws SQLException {
-		Database.readCommand("SELECT " + searchValue + " FROM Patient");
-		ResultSet nameList = Database.getResults();
-		int temp = 0;
-		while(nameList.next()) {
-			if(nameList.getString(searchValue).length() > temp) {
-				temp = nameList.getString(searchValue).length();
-			}
-		}
-		Database.closeResults(nameList);
-		return temp;
-	}
+	int longestName = longestValue("Name");
+	int longestID = longestValue("Id");
+	int longestOrgan = longestValue("Organ");
+	int longestBloodType = 9;
 	
 	public String formatString(String name, String id, String bloodType, String organ) throws SQLException {
-		int longestName = longestValue("Name");
-		int longestID = longestValue("Id");
-		int longestOrgan = longestValue("Organ");
-		int longestBloodType = 9;
 		String formatted = "";
 		
 		formatted = formatted + name;
@@ -101,49 +102,4 @@ public class Patient implements People {
 		}
 		return formatted;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

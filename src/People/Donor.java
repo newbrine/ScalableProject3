@@ -2,6 +2,7 @@ package People;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.sql.ResultSet;
 import SQL.Database;
 
@@ -38,7 +39,7 @@ public class Donor implements People {
 			e1.printStackTrace();
 		}
 	}
-	/*
+
 	@Override
 	public ArrayList<String> search(String name, String id, String bloodType, String organ) throws SQLException {
 		Database.readCommand("SELECT * FROM Donor WHERE Id = '" + id + "'" + "OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "'OR Organ = '" + organ + "'" );
@@ -52,7 +53,6 @@ public class Donor implements People {
    	 	 	System.out.println(type);
    	 	 	//System.out.println(organ1);
         }
-		return ;
+		return new ArrayList<String>();
 		}
-	*/
 }
