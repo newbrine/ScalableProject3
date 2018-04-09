@@ -68,7 +68,6 @@ public class Patient implements People {
 		while (results.next()) {
 			outputResult.add(formatString(results.getString("Name"), results.getString("Id"), results.getString("Bloodtype"), results.getString("Organ")));
 		}
-		System.out.println(outputResult);
 		Database.closeResults(results);
 		return outputResult;
 	}
