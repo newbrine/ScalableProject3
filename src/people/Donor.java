@@ -38,4 +38,19 @@ public class Donor implements People {
 			e1.printStackTrace();
 		}
 	}
+	
+	
+	public void search(String name, String id, String bloodType, String organ) throws SQLException {
+		Database.readCommand("SELECT * FROM Donor WHERE Id = '" + id + "'" + "OR Name = '" + name +"' OR Bloodtype = '" + bloodType + "'OR Organ = '" + organ + "'" );
+		ResultSet results = Database.getResults();
+		while (results.next()) {
+			String name1 = results.getString("name");
+   	 	 	String type = results.getString("bloodtype");
+   	 	 	//String organ1 = results.getString("organ");
+   	 	 	
+   	 	 	System.out.println(name1);
+   	 	 	System.out.println(type);
+   	 	 	//System.out.println(organ1);
+        }
+		}
 }
