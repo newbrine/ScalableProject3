@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 
 public class GUIController {
@@ -75,8 +76,30 @@ public class GUIController {
 	
 	@FXML
 	public void addNewPatientOrDonor() {
-		if(!checkName(addName.getText())) {System.out.println("The name must only contain alphanumeric characters.");}
-		else if(!checkID(addID.getText())) {System.out.println("The ID number must only contain numbers.");} 
+		if(!checkName(addName.getText())) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("The name should only contain alphanumeric characters");
+			alert.show();
+			//System.out.println("The name must only contain alphanumeric characters.");
+		}
+		else if(!checkID(addID.getText())) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("The id should have numbers");
+			alert.show();
+			//System.out.println("The ID number must only contain numbers.");
+			}
+		else if(addPatientOrDonor.getValue() == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("You have to choose if the person is a Patient or a donor. ");
+			alert.show();
+			//System.out.println("Choose if this person is a Patient or Donor.");
+			}
 		else {
 			if (addPatientOrDonor.getValue().equals("Patient")) {
 				patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
@@ -89,7 +112,24 @@ public class GUIController {
 	
 	@FXML
 	public void deletePatientOrDonor() {
-		if(!checkID(removeID.getText())) {System.out.println("The ID number must only contain numbers.");}
+		if(!checkID(removeID.getText())) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("The id should have numbers");
+			alert.show();
+		}
+
+			//System.out.println("The ID number must only contain numbers.");}
+		else if(removePatientOrDonor.getValue() == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("You have to choose if the person is a Patient or a donor. ");
+			alert.show();
+			//System.out.println("Choose if this person is a Patient or Donor.");
+			}
+	
 		else {
 			if (removePatientOrDonor.getValue().equals("Patient")) {
 				patient.remove(removeID.getText());
@@ -102,8 +142,30 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
-		if(!searchName.getText().isEmpty() && !checkName(searchName.getText())) {System.out.println("The name must only contain alphanumeric characters.");}
-		else if(!searchID.getText().isEmpty() && !checkID(searchID.getText())) {System.out.println("The ID number must only contain numbers.");}
+		if(!searchName.getText().isEmpty() && !checkName(searchName.getText())) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("The name should only contain alphanumeric characters");
+			alert.show();
+			//System.out.println("The name must only contain alphanumeric characters.");
+			}
+		else if(!searchID.getText().isEmpty() && !checkID(searchID.getText())) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("The id should have numbers");
+			alert.show();
+			//System.out.println("The ID number must only contain numbers.");}
+		}
+		else if(searchPatientOrDonor.getValue() == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Completion!");
+			alert.setHeaderText("WOAHHHH!! ");
+			alert.setContentText("You have to choose if the person is a Patient or a donor. ");
+			alert.show();
+			//System.out.println("Choose if this person is a Patient or Donor.");
+			}
 		else {
 			results.clear();
 			if (searchPatientOrDonor.getValue().equals("Patient")) {
