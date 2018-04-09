@@ -2,6 +2,10 @@ package GUI;
 
 import people.Donor;
 import people.Patient;
+import sql.Database;
+
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -91,6 +95,21 @@ public class GUIController {
 	
 	@FXML
 	public void searchPatientDonor() {
+		ArrayList<String> criteria = searchCriteria();
+		if (searchPatientOrDonor.getValue().equals("Patient")) {
+			String command = "SELECT * FROM Patient WHERE " + criteria.get(0);
+			for (int i = 1; i < criteria.size(); i++) {
+				command = command + criteria.get(i);
+			}
+			Database.readCommand(command);
+		}
+		else {
+			String command = "SELECT * FROM Donor WHERE " + criteria.get(0);
+			for (int i = 1; i < criteria.size(); i++) {
+				command = command + criteria.get(i);
+			}
+			Database.readCommand(command);
+		}
 		clearFields(searchName, searchID, searchAvailableBloodOrOrgans, searchBloodType, searchPatientOrDonor);
 	}
 	
@@ -114,5 +133,40 @@ public class GUIController {
 	public void patientDonorSetup(ComboBox<String> patientOrDonorBox) {
 		patientOrDonorBox.setItems(FXCollections.observableArrayList("Patient", "Donor"));
 		patientOrDonorBox.setPromptText("Select Patient or Donor");
+	}
+	
+	public ArrayList<String> searchCriteria() {
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("Name = ");
+		list.add("Id = ");
+		list.add("Bloodtype = ");
+		list.add("Organ = ");
+		list = searchCriteriaHelperField(list, searchName, "Name");
+		list = searchCriteriaHelperField(list, searchID, "Id");
+		list = searchCriteriaHelperField(list, searchAvailableBloodOrOrgans, "Organ");
+		list = searchCriteriaHelperChoiceBox(list, searchBloodType, "Bloodtype");
+		return list;
+	}
+	
+	public ArrayList<String> searchCriteriaHelperField(ArrayList<String> list, TextField field, String criteria) {
+		if (field.getText() != "") {
+			int i = list.indexOf(criteria + " = ");
+			list.add(i, criteria + " = " + field.getText());
+		}
+		else {
+			list.remove(criteria + " = ");
+		}
+		return list;
+	}
+	
+	public ArrayList<String> searchCriteriaHelperChoiceBox(ArrayList<String> list, ComboBox<String> box, String criteria) {
+		if (box.getValue() != null) {
+			int i = list.indexOf(criteria + " = ");
+			list.add(i, criteria + " = " + box.getValue());
+		}
+		else {
+			list.remove(criteria + " = ");
+		}
+		return list;
 	}
 }
