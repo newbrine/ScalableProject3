@@ -8,8 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class Person {
-	public Person() {}
-	
 	public static void add(String table, String name, String id, String bloodtype, String organ) throws SQLException {
 		Database.readCommand("SELECT * FROM " + table + " WHERE Id = '" + id + "'");
 		ResultSet results = Database.getAndCloseResults();
