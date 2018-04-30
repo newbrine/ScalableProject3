@@ -1,16 +1,13 @@
 package GUI;
 
-import People.Donor;
-import People.Patient;
+import People.*;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 
 public class GUIController {
@@ -57,14 +54,10 @@ public class GUIController {
 	@FXML
 	ImageView joshPic;
 
-	Patient patient;
-	Donor donor;
 	ObservableList<String> results = FXCollections.observableArrayList();
 
 	@FXML
 	public void initialize() {
-		patient = new Patient();
-		donor = new Donor();
 		bloodTypeSetup(addBloodType);
 		bloodTypeSetup(searchBloodType);
 		organSetup(addOrgans);
@@ -77,19 +70,19 @@ public class GUIController {
 	@FXML
 	public void addNewPatientOrDonor() {
 		if(!checkName(addName.getText())) {
-			showAlert("The name should only contain alphanumeric characters.");
+			Person.showAlert("The name should only contain alphanumeric characters.");
 		}
 		else if(!checkID(addID.getText())) {
-			showAlert("The ID should only contain numbers.");
+			Person.showAlert("The ID should only contain numbers.");
 		}
 		else if(addPatientOrDonor.getValue() == null) {
-			showAlert("Please choose if this person is a Patient or a Donor.");
+			Person.showAlert("Please choose if this person is a Patient or a Donor.");
 		}
 		else {
-			if (addPatientOrDonor.getValue().equals("Patient")) {
-				patient.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
-			} else {
-				donor.add(addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
+			try {
+				Person.add(addPatientOrDonor.getValue(), addName.getText(), addID.getText(), addBloodType.getValue(), addOrgans.getValue());
+			} catch (SQLException e) {
+				Person.showAlert("There has been an error in the program.");
 			}
 		}
 		clearFields(addName, addID, addOrgans, addBloodType, addPatientOrDonor);
@@ -98,16 +91,16 @@ public class GUIController {
 	@FXML
 	public void deletePatientOrDonor() {
 		if(!checkID(removeID.getText())) {
-			showAlert("The ID should only contain numbers");
+			Person.showAlert("The ID should only contain numbers");
 		}
 		else if(removePatientOrDonor.getValue() == null) {
-			showAlert("Please choose if this person is a Patient or a Donor.");
+			Person.showAlert("Please choose if this person is a Patient or a Donor.");
 		}
 		else {
-			if (removePatientOrDonor.getValue().equals("Patient")) {
-				patient.remove(removeID.getText());
-			} else {
-				donor.remove(removeID.getText());
+			try {
+				Person.remove(removePatientOrDonor.getValue(), removeID.getText());
+			} catch (SQLException e) {
+				Person.showAlert("There has been an error in the program.");
 			}
 		}
 		clearFields(null, removeID, null, null, removePatientOrDonor);
@@ -116,30 +109,21 @@ public class GUIController {
 	@FXML
 	public void searchPatientDonor() {
 		if(!searchName.getText().isEmpty() && !checkName(searchName.getText())) {
-			showAlert("The name should only contain alphanumeric characters.");
+			Person.showAlert("The name should only contain alphanumeric characters.");
 		}
 		else if(!searchID.getText().isEmpty() && !checkID(searchID.getText())) {
-			showAlert("The ID should only contain numbers.");
+			Person.showAlert("The ID should only contain numbers.");
 		}
 		else if(searchPatientOrDonor.getValue() == null) {
-			showAlert("Please choose if this person is a Patient or a Donor");
+			Person.showAlert("Please choose if this person is a Patient or a Donor");
 		}
 		else {
 			results.clear();
-			if (searchPatientOrDonor.getValue().equals("Patient")) {
-				try {
-					results.addAll(patient.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue()));
-					updateListView();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					results.addAll(donor.search(searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue()));
-					updateListView();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			try {
+				results.addAll(Person.search(searchPatientOrDonor.getValue(), searchName.getText(), searchID.getText(), searchBloodType.getValue(), searchOrgans.getValue()));
+				updateListView();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 		clearFields(searchName, searchID, searchOrgans, searchBloodType, searchPatientOrDonor);
@@ -181,13 +165,5 @@ public class GUIController {
 	@FXML
 	public void showJosh() {
 		joshPic.setVisible(true);
-	}
-	
-	public void showAlert(String text) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Whoa!");
-		alert.setContentText(text);
-		alert.show();
 	}
 }
