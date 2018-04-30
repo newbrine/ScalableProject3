@@ -155,7 +155,7 @@ public class GUIController {
 
 	//https://stackoverflow.com/questions/5238491/check-if-string-contains-only-letters
 	public Boolean checkName(String name) {
-		return name.matches("[a-zA-Z]+");
+		return name.matches("[a-z A-Z]+");
 	}
 
 	public Boolean checkID(String id) {
